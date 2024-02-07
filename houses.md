@@ -73,6 +73,32 @@ title: houses
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 <script>
+
+    // Function to get the JWT token from cookies
+    function getJwtToken() {
+        return document.cookie.split(';').find(cookie => cookie.trim().startsWith('jwt='));
+    }
+
+    // Function to redirect to the login page if the JWT token does not exist
+    function redirectToLogin() {
+        window.location.href = "{{site.baseurl}}/login"; // Adjust the login page URL as needed
+    }
+
+    // Check for the existence of the JWT token when the page loads
+    window.addEventListener('load', function() {
+        const jwtToken = getJwtToken();
+
+        // If the JWT token does not exist, redirect to the login page
+        if (!jwtToken) {
+            redirectToLogin();
+        }
+    });
+
+    // Your existing JavaScript code for fetching and rendering houses data
+    document.addEventListener('DOMContentLoaded', () => {
+        // Your existing JavaScript code for fetching and rendering houses data
+    });
+
     document.addEventListener('DOMContentLoaded', () => {
         const houseCardsContainer = document.getElementById('house-cards');
         const searchBar = document.getElementById('search-bar');
