@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Real Esate Analyzation
+permalinl: /
 ---
 
 <html lang="en">
@@ -15,7 +16,7 @@ title: Real Esate Analyzation
         }
         .hero-section {
             height: 60vh;
-            background-image: url('https://media.architecturaldigest.com/photos/64935ffc5e386c8d06f7be5b/16:9/w_2560%2Cc_limit/10644BellagioRoad193.jpg');
+            background-image: url('https://cdn.hometogo.net/assets/media/pics/1920_600/6118fa9084ec1.jpg');
             background-size: cover;
             background-position: center;
             color: white;
@@ -59,7 +60,7 @@ title: Real Esate Analyzation
 <!-- Hero Section -->
 <section class="hero-section">
     <div>
-        <h1>Welcome to Real Esate Analyzation</h1>
+        <h1>Welcome to SoCal Real Esate</h1>
         <p>Find the best properties in Southern California</p>
     </div>
 </section>
@@ -75,6 +76,27 @@ title: Real Esate Analyzation
 </section>
 
 <script>
+
+    // Function to get the JWT token from cookies
+    function getJwtToken() {
+        return document.cookie.split(';').find(cookie => cookie.trim().startsWith('jwt='));
+    }
+
+    // Function to redirect to the login page if the JWT token does not exist
+    function redirectToLogin() {
+        window.location.href = "{{site.baseurl}}/login"; // Adjust the login page URL as needed
+    }
+
+    // Check for the existence of the JWT token when the page loads
+    window.addEventListener('load', function() {
+        const jwtToken = getJwtToken();
+
+        // If the JWT token does not exist, redirect to the login page
+        if (!jwtToken) {
+            redirectToLogin();
+        }
+    });
+
     // Function to get the correct link for "View More Houses" based on the hostname
     function getHousesLink() {
         if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
