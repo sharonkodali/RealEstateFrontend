@@ -97,7 +97,27 @@ title: AI Bot
             <button id="submit-button" type="submit">Send</button>
         </form>
     </div>
-    <script>
+<script>
+    // Function to get the JWT token from cookies
+    function getJwtToken() {
+        return document.cookie.split(';').find(cookie => cookie.trim().startsWith('jwt='));
+    }
+    // Function to redirect to the login page if the JWT token does not exist
+    function redirectToLogin() {
+        window.location.href = "{{site.baseurl}}/login"; // Adjust the login page URL as needed
+    }
+    // Check for the existence of the JWT token when the page loads
+    window.addEventListener('load', function() {
+        const jwtToken = getJwtToken();
+        // If the JWT token does not exist, redirect to the login page
+        if (!jwtToken) {
+            redirectToLogin();
+        }
+    });
+    // Your existing JavaScript code for fetching and rendering houses data
+    document.addEventListener('DOMContentLoaded', () => {
+        // Your existing JavaScript code for fetching and rendering houses data
+    });
     document.addEventListener("DOMContentLoaded", function () {
         const conversation = document.getElementById("conversation");
         const inputField = document.getElementById("input-field");
