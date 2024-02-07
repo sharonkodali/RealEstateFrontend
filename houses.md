@@ -78,7 +78,12 @@ title: houses
         const searchBar = document.getElementById('search-bar');
         const placeholderImageUrl = 'https://www.avantistones.com/images/noImage.png';
         let housesData = [];
-        
+
+        // Define getHouseDetailsLink function
+        function getHouseDetailsLink(houseId) {
+            return `/houses/house_details?id=${houseId}`;
+        }
+
         async function fetchData() {
             try {
                 const response = await fetch('http://127.0.0.1:8181/api/house/houses');
@@ -89,28 +94,28 @@ title: houses
                 console.error('Error fetching data:', error);
             }
         }
-        
+
         function renderHouses(houses) {
-            housesCardsContainer.innerHTML = '';
+            houseCardsContainer.innerHTML = '';
             houses.forEach(house => {
-                const housesCard = document.createElement('div');
+                const houseCard = document.createElement('div');
                 houseCard.classList.add('col-lg-4', 'col-md-6', 'mb-4');
                 houseCard.innerHTML = `
                     <div class="card">
                         <img src="${house.imgSRC || placeholderImageUrl}" class="card-img-top" alt="${house.address}">
                         <div class="card-body">
                             <h5 class="card-title">${house.address}</h5>
-                            <h5 class="card-title">Price: ${house.price}</h5>
-                            <p class="card-text">${house.livingarea} sqft</p>
-                            <p class="card-text">Bedrooms: ${house.bedrooms}</p>
-                            <p class="card-text">Bathrooms: ${house.bathrooms}</p>
-                            <a href="${getHouseDetailsLink(house.id)}" class="btn btn-primary view-details-btn">View Details</a>
+                            <h5 class="card-title">Price: $${house.price}</h5>
+                            ${house.livingarea ? `<p class="card-text">${house.livingarea} sqft</p>` : ''}
+                            ${house.bedrooms ? `<p class="card-text">Bedrooms: ${house.bedrooms}</p>` : ''}
+                            ${house.bathrooms ? `<p class="card-text">Bathrooms: ${house.bathrooms}</p>` : ''}
+                            ${house.id ? `<a href="${getHouseDetailsLink(house.id)}" class="btn btn-primary view-details-btn">View Details</a>` : ''}
                         </div>
                     </div>
                 `;
-                housesCardsContainer.appendChild(housesCard);
+                houseCardsContainer.appendChild(houseCard);
             });
-            
+
             const detailsButtons = document.querySelectorAll('.view-details-btn');
             detailsButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -121,21 +126,21 @@ title: houses
                     } else {
                         baseUrl = "https://real-estate-analyzation.github.io/RealEstateFrontend/houses/";
                     }
-                    console.log('${baseUrl}house_details?id=${houseId}')
+                    console.log(`${baseUrl}house_details?id=${houseId}`)
                     location.href = `${baseUrl}house_details?id=${houseId}`;
                 });
             });
         }
-        
+
         function filterHouses() {
             const searchTerm = searchBar.value.toLowerCase();
-            const filteredHouses = HousesData.filter(houses => {
+            const filteredHouses = housesData.filter(house => {
                 const houseAddress = house.address.toLowerCase();
                 return houseAddress.includes(searchTerm);
             });
             renderHouses(filteredHouses);
         }
-        
+
         fetchData();
         searchBar.addEventListener('input', filterHouses);
     });
