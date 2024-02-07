@@ -10,7 +10,7 @@ permalink: /editUser
             padding: 0;
         }
         .container {
-            width: 300px;
+            width: 400px;
             margin: 100px auto;
             padding: 20px;
             background-color: #fff;

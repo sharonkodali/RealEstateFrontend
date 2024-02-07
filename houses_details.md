@@ -110,6 +110,7 @@ title: House Details
                             ${house.homeType ? `<p><strong>Home Type:</strong> ${house.homeType}</p>` : ''}
                             ${house.priceEstimate ? `<p><strong>Price Estimate:</strong> $${house.priceEstimate}</p>` : ''}
                             ${house.rentEstimate ? `<p><strong>Rent Estimate:</strong> $${house.rentEstimate}</p>` : ''}
+                            <button class="btn btn-primary btn-lg font-weight-bold" id="addToFavorites">Add to Favorites</button>
                         </div>
                     `;
                 } catch (error) {
