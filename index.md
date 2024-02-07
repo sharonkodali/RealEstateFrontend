@@ -156,10 +156,10 @@ permalinl: /
                         <img src="${house.imgSRC || placeholderImageUrl}" class="card-img-top" alt="${house.address}">
                         <div class="card-body">
                             <h5 class="card-title">${house.address}</h5>
-                            <h5 class="card-title">Price: ${house.price}</h5>
-                            <p class="card-text">${house.livingarea} sqft</p>
-                            <p class="card-text">Bedrooms: ${house.bedrooms}</p>
-                            <p class="card-text">Bathrooms: ${house.bathrooms}</p>
+                            ${house.price ? `<h5 class="card-title">Price: ${house.price}</h5>` : ''}
+                            ${house.livingarea ? `<p class="card-text">${house.livingarea} sqft</p>` : ''}
+                            ${house.bedrooms ? `<p class="card-text">Bedrooms: ${house.bedrooms}</p>` : ''}
+                            ${house.bathrooms ? `<p class="card-text">Bathrooms: ${house.bathrooms}</p>` : ''}
                             <a href="${getHouseDetailsLink(house.id)}" class="btn btn-primary view-details-btn">View Details</a>
                         </div>
                     </div>
@@ -167,17 +167,17 @@ permalinl: /
                 houseList.appendChild(houseCard);
             });
 
-        function getHouseDetailsLink(houseId) {
-            let baseUrl;
+            function getHouseDetailsLink(houseId) {
+                let baseUrl;
 
-            if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-                baseUrl = "/houses/";
-            } else {
-                baseUrl = "https://real-estate-analyzation.github.io/RealEstateFrontend/houses/";
+                if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+                    baseUrl = "/houses/";
+                } else {
+                    baseUrl = "https://real-estate-analyzation.github.io/RealEstateFrontend/houses/";
+                }
+
+                return `${baseUrl}house_details?id=${houseId}`;
             }
-
-            return `${baseUrl}house_details?id=${houseId}`;
-        }
 
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -187,6 +187,7 @@ permalinl: /
     // Call the fetchHouses function when the page loads
     window.addEventListener('load', fetchHouses);
 </script>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
