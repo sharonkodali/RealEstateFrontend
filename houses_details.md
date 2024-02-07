@@ -66,6 +66,26 @@ title: House Details
         <!-- House information will be inserted here dynamically using JavaScript -->
     </div>
     <script>
+        // Function to get the JWT token from cookies
+        function getJwtToken() {
+            return document.cookie.split(';').find(cookie => cookie.trim().startsWith('jwt='));
+        }
+        // Function to redirect to the login page if the JWT token does not exist
+        function redirectToLogin() {
+            window.location.href = "{{site.baseurl}}/login"; // Adjust the login page URL as needed
+        }
+        // Check for the existence of the JWT token when the page loads
+        window.addEventListener('load', function() {
+            const jwtToken = getJwtToken();
+            // If the JWT token does not exist, redirect to the login page
+            if (!jwtToken) {
+                redirectToLogin();
+            }
+        });
+    // Your existing JavaScript code for fetching and displaying house details
+    document.addEventListener('DOMContentLoaded', () => {
+        // Your existing JavaScript code for fetching and displaying house details
+    });
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const houseId = urlParams.get('id');
