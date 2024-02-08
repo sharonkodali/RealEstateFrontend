@@ -11,7 +11,7 @@ permalink: /login
   }
 
   .container {
-    max-width: 400px;
+    max-width: 500px;
     margin: 50px auto;
     background-color: #fff;
     padding: 20px;
