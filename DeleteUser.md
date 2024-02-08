@@ -16,7 +16,7 @@ The form triggers the login_user function defined in the JavaScript below when t
             padding: 0;
         }
         .container {
-            width: 400px;
+            width: 500px;
             margin: 100px auto;
             padding: 20px;
             background-color: #fff;
