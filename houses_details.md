@@ -68,11 +68,45 @@ title: House Details
     <script>
         // Function to get the JWT token from cookies
         function getJwtToken() {
-            return document.cookie.split(';').find(cookie => cookie.trim().startsWith('jwt='));
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [name, value] = cookie.split('=');
+                if (name.trim() === 'jwt') {
+                    return value;
+                }
+            }
+            return null;
         }
         // Function to redirect to the login page if the JWT token does not exist
         function redirectToLogin() {
             window.location.href = "{{site.baseurl}}/login"; // Adjust the login page URL as needed
+        }
+        // Function to add the house to favorites
+        async function addToFavorites(houseId) {
+            try {
+                const jwtToken = getJwtToken();
+                if (!jwtToken) {
+                    redirectToLogin();
+                    return;
+                }
+                const decodedToken = JSON.parse(atob(jwtToken.split('.')[1])); // Decode token and parse JSON
+                const userId = decodedToken.id;
+                console.log(userId); // Extract user ID from JWT token
+                const response = await fetch(`http://127.0.0.1:8181/api/house/addtofavorites?id=${userId}&house_id=${houseId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`
+                    }
+                });
+                if (response.ok) {
+                    window.location.href = "/favorites";
+                } else {
+                    alert('Failed to add house to favorites. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error adding house to favorites:', error);
+                alert('Failed to add house to favorites. Please try again later.');
+            }
         }
         // Check for the existence of the JWT token when the page loads
         window.addEventListener('load', function() {
@@ -82,10 +116,6 @@ title: House Details
                 redirectToLogin();
             }
         });
-    // Your existing JavaScript code for fetching and displaying house details
-    document.addEventListener('DOMContentLoaded', () => {
-        // Your existing JavaScript code for fetching and displaying house details
-    });
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const houseId = urlParams.get('id');
@@ -113,6 +143,11 @@ title: House Details
                             <button class="btn btn-primary btn-lg font-weight-bold" id="addToFavorites">Add to Favorites</button>
                         </div>
                     `;
+                    // Add event listener to the "Add to Favorites" button
+                    const addToFavoritesButton = document.getElementById('addToFavorites');
+                    addToFavoritesButton.addEventListener('click', () => {
+                        addToFavorites(houseId); // Call the addToFavorites function with the house ID
+                    });
                 } catch (error) {
                     console.error('Error fetching data:', error);
                     houseInfoContainer.innerHTML = '<p>Error loading house information.</p>';
@@ -120,7 +155,8 @@ title: House Details
             }
             fetchHouseInfo();
         });
-    </script>
+</script>
+
 </body>
 
 </html>
