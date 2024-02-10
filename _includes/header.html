@@ -31,6 +31,9 @@
                     <a class="nav-link" href="{{site.baseurl}}/aibot">AI Real Estate Bot</a>
                 </li>
                 <li class="nav-item">
+                    <a id="favoriteLink" class="nav-link" href="{{site.baseurl}}/favorites">Favorites</a>
+                </li>    
+                <li class="nav-item">
                     <!-- Check if JWT token exists and show the appropriate link -->
                     <a id="editUserLink" class="nav-link" href="{{site.baseurl}}/edituser">Edit User</a>
                 </li>
@@ -76,6 +79,7 @@
     // Function to initialize the navbar based on JWT token existence
     function initializeNavbar() {
         const logoutLink = document.getElementById('logoutLink');
+        const favoriteLink = document.getElementById('favoriteLink');
         const editUserLink = document.getElementById('editUserLink');
         const deleteUserLink = document.getElementById('deleteUserLink');
         const databaseLink = document.getElementById('databaseLink');
@@ -99,6 +103,7 @@
         } else {
             // If JWT token does not exist, hide the logout link
             logoutLink.style.display = 'none';
+            favoriteLink.style.display = 'none';
             editUserLink.style.display = 'none';
             deleteUserLink.style.display = 'none'; // Hide delete user link
             databaseLink.style.display = 'none'; // Hide database link
