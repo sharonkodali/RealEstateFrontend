@@ -136,11 +136,13 @@ permalinl: /
 </script>-->
 
 
-<script>
+<script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
     // Function to fetch and display houses information
     async function fetchHouses() {
         try {
-            const response = await fetch('http://127.0.0.1:8181/api/house/houses'); // Replace with your API URL
+            const url = uri + '/api/house/houses';
+            const response = await fetch(url); // Replace with your API URL
             const data = await response.json();
 
             // Select the div where you want to display the houses
