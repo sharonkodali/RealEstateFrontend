@@ -97,7 +97,8 @@ title: AI Bot
             <button id="submit-button" type="submit">Send</button>
         </form>
     </div>
-<script>
+<script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
     // Function to get the JWT token from cookies
     function getJwtToken() {
         return document.cookie.split(';').find(cookie => cookie.trim().startsWith('jwt='));
@@ -137,7 +138,8 @@ title: AI Bot
             userMessage.appendChild(userText);
             conversation.appendChild(userMessage);
             // Send the user's question to the API
-            fetch(`http://127.0.0.1:8181/api/house/openai?question=${encodeURIComponent(userQuestion)}&code=${accessCode}`, {method: 'GET', mode: 'cors'}).then((response) => response.json()).then((data) => {
+            const url = uri + '/api/house/openai';
+            fetch(url + `?question=${encodeURIComponent(userQuestion)}&code=${accessCode}`, {method: 'GET', mode: 'cors'}).then((response) => response.json()).then((data) => {
                     // Display the chatbot's response
                     const chatbotMessage = document.createElement("div");
                     chatbotMessage.classList.add("chatbot-message");
