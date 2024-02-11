@@ -65,7 +65,8 @@ title: House Details
     <div class="house-info" id="house-info">
         <!-- House information will be inserted here dynamically using JavaScript -->
     </div>
-    <script>
+    <script type="module">
+        import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
         // Function to get the JWT token from cookies
         function getJwtToken() {
             const cookies = document.cookie.split(';');
@@ -91,8 +92,9 @@ title: House Details
                 }
                 const decodedToken = JSON.parse(atob(jwtToken.split('.')[1])); // Decode token and parse JSON
                 const userId = decodedToken.id;
-                console.log(userId); // Extract user ID from JWT token
-                const response = await fetch(`http://127.0.0.1:8181/api/house/addtofavorites?id=${userId}&house_id=${houseId}`, {
+                const url = uri + '/api/house/addtofavorites?id=' + userId + '&house_id=' + houseId;
+                console.log(url);
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${jwtToken}`
@@ -122,7 +124,8 @@ title: House Details
             const houseInfoContainer = document.getElementById('house-info');
             async function fetchHouseInfo() {
                 try {
-                    const response = await fetch(`http://127.0.0.1:8181/api/house/housedetails?id=${houseId}`);
+                    const url = uri + '/api/house/housedetails?id=' + houseId;
+                    const response = await fetch(url);
                     const house = await response.json();
                     houseInfoContainer.innerHTML = `
                         <img src="${house.imgSRC || 'https://www.avantistones.com/images/noImage.png'}" alt="${house.address}" />
