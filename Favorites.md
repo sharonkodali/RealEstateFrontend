@@ -75,7 +75,8 @@ permalink: /favorites
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-<script>
+<script type="module">
+    import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
     // Your JavaScript code
     // Function to get the JWT token from cookies
     function getJwtToken() {
@@ -107,7 +108,8 @@ permalink: /favorites
         try {
             const jwtToken = getJwtToken();
             const userId = JSON.parse(atob(jwtToken.split('.')[1])).id;
-            const response = await fetch(`http://127.0.0.1:8181/api/house/getfavorites?id=${userId}`);
+            const url = uri + '/api/house/getfavorites?id=' + userId;
+            const response = await fetch(url);
             const favorites = await response.json();
             renderFavorites(favorites);
         } catch (error) {
