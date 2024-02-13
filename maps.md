@@ -14,8 +14,15 @@ title: maps
       font-family: Arial, sans-serif;
       background-color: #f0f0f0;
     }
+    #map-container {
+      height: 80vh; /* Adjust height as needed */
+      width: 80%; /* Adjust width as needed */
+      margin: 20px auto; /* Center the map horizontally */
+      border: 2px solid #ccc; /* Add border */
+      border-radius: 10px; /* Optional: Add border radius */
+    }
     #map {
-      height: 100vh;
+      height: 100%;
       width: 100%;
     }
   </style>
@@ -67,11 +74,14 @@ title: maps
 </head>
 <body>
   <!--The div element for the map -->
-  <div id="map"></div>
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
 
   <!-- prettier-ignore -->
   <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
     ({key: "AIzaSyC9pEqmLuhD8-W86bZHiuDpCgeXlCoxVTc ", v: "beta"});</script>
 </body>
 </html>
+
 
