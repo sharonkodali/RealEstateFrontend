@@ -3,16 +3,16 @@ permalink: /maps
 layout: maps
 title: maps
 ---
-<!DOCTYPE html>
+
 <html style="height: 100%; margin: 0; padding: 0;">
 <head>
-  <title>Add Map</title>
+  <title> Real Estate Map</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+      background-color: #007bff;
     }
     #map-container {
       height: 80vh; /* Adjust height as needed */
