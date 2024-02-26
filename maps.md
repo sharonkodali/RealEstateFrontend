@@ -1,6 +1,6 @@
 ---
 permalink: /maps
-layout: maps
+layout: base 
 title: maps
 ---
 
